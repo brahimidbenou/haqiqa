@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h2 class="upload-title">Upload your video and start your conversation with HaqiqaAI</h2>
+    <div class="upload-box">
+        <label for="video-upload">
+            <img src="/assets/Upload.svg" alt="upload-icon">
+            <p class="drop">Drop your video here</p>
+            <p class="click">or click to browse</p>
+        </label>
+        <input type="file" id="video-upload" accept="video/*" (change)="onFileSelected($event)" />
+    </div>
+    <p class="error-message">{{ errorMessage }}</p>
+    <!-- <button class="upload-btn" (click)="onUpload()">Upload</button> -->
+    <div class="main-func">
+        <div class="item">
+            <p class="drop">AI-Powered Analysis</p>
+            <p class="click">Get instant insights from your videos</p>
+        </div>
+        <div class="item">
+            <p class="drop">Interactive Chat</p>
+            <p class="click">Discuss video content with HaqiqaBot</p>
+        </div>
+        <div class="item">
+            <p class="drop">Smart Summaries</p>
+            <p class="click">Automatic scene and topic detection</p>
+        </div>
+    </div>
+</div>
+
+<div class="uploading" *ngIf="uploading">
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+</div>

@@ -1,0 +1,41 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+
+  <ng-container *ngIf="isLoading">
+    <div class="loading">
+      <div class="spinner"></div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(!isLoading && hasError)">
+    <div class="video-error">
+      <h3>Could not load video</h3>
+      <p>The requested video could not be found or an error occurred.</p>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(!isLoading && videoUrl && !hasError)">
+    <div class="wrapper">
+      <div class="video-content">
+        <video [src]="videoUrl.url" class="video" controls></video>
+
+        <div *ngIf="(status === 'COMPLETED' && !isAnlyzing); else loading">
+          <div class="video-overlay">
+            <h1>{{ videoUrl.title }}</h1>
+            <p>{{ videoUrl.summary }}</p>
+          </div>
+        </div>
+
+        <ng-template #loading>
+          <div class="video-overlay">
+            <p class="load" *ngFor="let _ of loaders"></p>
+          </div>
+        </ng-template> 
+      </div>
+      <div class="chat">
+        <app-chat [videoId]="id!"></app-chat>
+      </div>
+    </div>
+  </ng-container>
+</div>

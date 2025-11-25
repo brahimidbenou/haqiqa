@@ -1,0 +1,32 @@
+<div class="login-page">
+  <div class="title">
+    <img src="/assets/logo1.svg" alt="logo">
+    <h2>HaqiqaAi</h2>
+  </div>
+  <form class="login-form" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" name="email" [(ngModel)]="email" required/>
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" [(ngModel)]="password" required/>
+    </div>
+
+    <div class="error">{{ error }}</div>
+
+    <button type="submit">
+      <ng-container *ngIf="!isConnecting; else: connecting">Sign in</ng-container>
+      <ng-template #connecting>
+        <div class="dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </ng-template>
+    </button>
+    <p class="first-time"><span>Don't have an account? </span><a href="/register">Sign up</a></p>
+  </form>
+</div>
+

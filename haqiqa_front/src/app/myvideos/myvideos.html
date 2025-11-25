@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<app-delete-video-confirmation 
+    *ngIf="showDeleteConf" 
+    [videoId]="toDelete"
+    [key]="keyToDelete"
+    [thumbnail]="thumbnailToDelete"
+    (close)="closeConfPopup()"
+></app-delete-video-confirmation>
+
+<div class="container">
+    <h1 class="home-title">My Videos</h1>
+    <div class="videos" *ngIf="videosUrl.length">
+        <div *ngFor="let video of videosUrl" class="video-item" (click)="clickOnVideo(video.id)">
+            <div class="video-content">
+                <img [src]="video.url" class="thumbnail"/>
+                <img src="/assets/play.svg" alt="play-icon" class="play">
+                <p class="time">{{ formatDuration(video.duration) }}</p>
+            </div>
+            <div class="video-info">
+                <h2>{{ video.title }}</h2>
+                <app-more-options 
+                    class="options" 
+                    (deleteVideo)="openDelete(video.id, video.key, video.thumbnail)"
+                ></app-more-options>
+                <p><img src="/assets/date.svg" alt="uploaded-date">{{ formatUploadedDate(video.uploadedAt) }}</p>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="isLoading">
+        <div class="loading">
+            <div class="spinner"></div>
+        </div>
+    </ng-container>
+
+    <div #infiniteScrollAnchor class="scroll-anchor"></div>
+</div>

@@ -1,0 +1,77 @@
+.more-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.more-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.menu {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    background: #1c1c1e;
+    border: 1px solid #ffffff20;
+    border-radius: 8px;
+    width: 150px;
+}
+
+.menu.show {
+    animation: appear 0.25s ease forwards;
+    pointer-events: auto;
+}
+
+.menu.hide {
+    animation: disappear 0.25s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes appear {
+    from {
+        transform: translateX(10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes disappear {
+    from {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+
+    to {
+        transform: translate(10px);
+        opacity: 0;
+    }
+}
+
+.menu-item {
+    width: calc(100% - 20px);
+    padding: 10px;
+    background: transparent;
+    color: #fff;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 0;
+}
+
+.menu-item:hover {
+    background: #27272a;
+}
+
+.menu-item.delete {
+    color: #f87171;
+}

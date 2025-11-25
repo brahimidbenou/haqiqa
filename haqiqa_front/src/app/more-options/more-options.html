@@ -1,0 +1,31 @@
+<div class="more-container">
+    <img src="/assets/more.svg" alt="more-option" (click)="onMoreClick($event)" />
+
+    <div class="menu" *ngIf="showMenu" [class.show]="showMenu" [class.hide]="isHiding">
+        <p class="menu-item" (click)="onEditClick($event)">Edit Title</p>
+        <p class="menu-item delete" (click)="onDeleteClick($event)">Delete Video</p>
+    </div>
+</div>
+
+
+<!-- ──────────────── Delete Confirmation Popup ──────────────── -->
+
+
+
+<!-- ──────────────── Edit Title Popup ──────────────── -->
+<!-- <div class="popup-backdrop" *ngIf="showEditTitle">
+    <div class="popup">
+        <h3>Edit Title</h3>
+
+        <input class="title-input"
+               [(ngModel)]="newTitle"
+               placeholder="Enter new title" 
+        />
+
+        <div class="popup-actions">
+            <button class="cancel-btn" (click)="showEditTitle = false">Cancel</button>
+            <button class="save-btn">Save</button>
+        </div>
+    </div>
+</div> -->
+

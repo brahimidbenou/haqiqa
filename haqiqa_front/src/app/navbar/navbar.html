@@ -1,0 +1,33 @@
+<div class="menu-toggle" (click)="toggleSidebar()">
+  <img src="/assets/menu.svg" alt="menu-icon">
+</div>
+
+<div class="nav-menu" [class.open]="isSidebarOpen">
+    <div class="top">
+        <div class="title" routerLink="/home">
+            <img src="/assets/logo.svg" alt="app-icon">
+            <h2>HaqiqaAi</h2>
+        </div>
+        <div class="links">
+            <a routerLink="/home" [class.active]="isActive('/home')">
+                <img src="/assets/Home.svg" alt="home-icon">
+                <p>Home</p>
+            </a>
+            <a routerLink="/myvideos" [class.active]="isActive('/myvideos')">
+                <img src="/assets/myvideos.svg" alt="myvideos-icon">
+                <p>My Videos</p>
+            </a>
+            <a routerLink="/settings" [class.active]="isActive('/settings')">
+                <img src="/assets/settings.svg" alt="settings-icon">
+                <p>Settings</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="logout" (click)="logout()">
+            <img src="/assets/logout.svg" alt="logout-icon">
+            <p>Logout</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="chat-content" #chatContainer (scroll)="onScroll()">
+        <div *ngIf="isLoadingOldMessages" class="top-loading-bar">
+            <div class="bar"></div>
+        </div>
+        <div *ngFor="let message of messages" [ngClass]="{'user-message': message.sender === 'USER', 'bot-message': message.sender === 'BOT'}">
+            {{ message.text }}
+        </div>
+
+        <div *ngIf="isThinking" class="bot-message thinking-indicator">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <div class="input-container">
+        <textarea 
+            [(ngModel)]="queryInput" 
+            placeholder="Type your message..." 
+            autocomplete="off" 
+            class="message-input" 
+            (keyup.enter)="sendMsg(queryInput); queryInput='';"
+            [disabled]="isThinking"
+        ></textarea>
+        <button class="send-button" [disabled]="isThinking" (click)="sendMsg(queryInput); queryInput='';">
+            <img src="/assets/send.svg" alt="send_icon">
+        </button>
+    </div>
+</div>

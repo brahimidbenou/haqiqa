@@ -1,0 +1,244 @@
+* {
+    box-sizing: border-box;
+    font-family: 'inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin: -10px;
+    width: calc(100% - 290px);
+    height: fit-content;
+    min-height: 100vh;
+    position: absolute;
+    top: 10px;
+    left: 300px;
+    padding: 30px;
+    background: linear-gradient(135deg, #09090b 0%, #18181b 100%);
+}
+
+.avatar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+}
+
+.avatar img {
+    width: 100px;
+    max-width: 100px;
+    border-radius: 50%;
+    border: 1px solid #666666;
+    object-fit: cover;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.edit-picture {
+    padding: 8px 12px;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #27272a 0%, #3f3f46 100%);
+    border-radius: 8px;
+    border: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13.6px;
+    line-height: 24px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.buttons button {
+    padding: 8px 12px;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #27272a 0%, #3f3f46 100%);
+    border-radius: 8px;
+    border: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13.6px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.account-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 30px 40px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    background: #18181b80;
+    border: 1px solid #3f3f46;
+    border-radius: 16px;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.item label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #ddd;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.item input {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    outline: none;
+    height: 45px;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    border-radius: 12px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.item input:focus {
+    border: 1px solid #666666;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.apply-btn,
+.cancel-btn,
+.delete-account-btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.apply-btn {
+    background: linear-gradient(135deg, #27272a 0%, #3f3f46 100%);
+    color: white;
+    height: 45px;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13.6px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.apply-btn:hover {
+    background-color: #52525b;
+}
+
+.cancel-btn {
+    padding: 8px 12px;
+    height: 45px;
+    width: 100px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #27272a 0%, #3f3f46 100%);
+    border-radius: 8px;
+    border: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13.6px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.cancel-btn:hover {
+    background-color: #3f3f46;
+}
+
+.delete-section {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-account-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    font-weight: 600;
+    height: 45px;
+    width: 100%;
+    border: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13.6px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.delete-account-btn:hover {
+    background-color: #c82333;
+}
+
+.error {
+    color: #b00020;
+}
+
+.success {
+    color: #20a020;
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 20px 80px;
+        min-height: 100vh;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .container {
+        padding: 30px;
+    }
+}
