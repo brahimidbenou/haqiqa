@@ -1,0 +1,92 @@
+{"properties": [
+  {
+    "name": "spring.datasource.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.url'"
+  },
+  {
+    "name": "spring.datasource.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.driver-class-name'"
+  },
+  {
+    "name": "spring.jpa.database-platform",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.database-platform'"
+  },
+  {
+    "name": "spring.jpa.hibernate.ddl-auto",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.hibernate.ddl-auto'"
+  },
+  {
+    "name": "spring.jpa.properties.hibernate.format_sql",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.properties.hibernate.format_sql'"
+  },
+  {
+    "name": "spring.jpa.show-sql",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.show-sql'"
+  },
+  {
+    "name": "spring.datasource.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.password'"
+  },
+  {
+    "name": "spring.datasource.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.username'"
+  },
+  {
+    "name": "security.jwt.secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'security.jwt.secret-key'"
+  },
+  {
+    "name": "security.jwt.expiration-time",
+    "type": "java.lang.String",
+    "description": "A description for 'security.jwt.expiration-time'"
+  },
+  {
+    "name": "minio.access-key",
+    "type": "java.lang.String",
+    "description": "A description for 'minio.access-key'"
+  },
+  {
+    "name": "minio.access-key",
+    "type": "java.lang.String",
+    "description": "A description for 'minio.access-key'"
+  },
+  {
+    "name": "minio.secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'minio.secret-key'"
+  },
+  {
+    "name": "minio.url",
+    "type": "java.lang.String",
+    "description": "A description for 'minio.url'"
+  },
+  {
+    "name": "minio.bucket",
+    "type": "java.lang.String",
+    "description": "A description for 'minio.bucket'"
+  },
+  {
+    "name": "haqiqa.python.api-key",
+    "type": "java.lang.String",
+    "description": "A description for 'haqiqa.python.api-key'"
+  },
+  {
+    "name": "ai.service.base-url",
+    "type": "java.lang.String",
+    "description": "A description for 'ai.service.base-url'"
+  },
+  {
+    "name": "app.internal-api-key",
+    "type": "java.lang.String",
+    "description": "A description for 'app.internal-api-key'"
+  }
+]}

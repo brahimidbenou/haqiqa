@@ -1,0 +1,128 @@
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+__screenshots__/
+
+# System files
+.DS_Store
+Thumbs.db
+
+
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Eclipse
+.project
+.classpath
+.settings/
+.springBeans
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# VS Code
+.settings/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+
+# Bytecode / cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.env/
+.venv/
+
+# Packaging
+build/
+dist/
+*.egg-info/
+
+# Flask instance / runtime files
+instance/
+*.pid
+
+# Logs
+*.log
+
+# Python tools
+.pytest_cache/
+.mypy_cache/
+coverage/
+htmlcov/
+.cache/
+
+
+# Environment variables
+*.env
+*.env.*
+.env.local
+.env.dev
+.env.production
+
+# IDE / Editor
+*.swp
+*.swo
+
+# Other
+*.tmp
