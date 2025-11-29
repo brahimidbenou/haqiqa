@@ -32,13 +32,14 @@ export class DeleteVideoConfirmation {
       next: () => {
         this.onDeleteFile(this.key);
         this.onDeleteFile(this.thumbnail);
+        this.onDeleteCollection();
       },
       error: (err) => {
         this.ngZone.run(() => {
           this.errorMessage = "An error occurred while deleting the video";
           this.cdr.detectChanges();
         });
-        console.error('deleting video error: ', err);
+        console.error('deleting video   error: ', err);
       }
     })
   }
@@ -51,6 +52,18 @@ export class DeleteVideoConfirmation {
           this.cdr.detectChanges();
         });
         console.error('deleting video error: ', err);
+      }
+    })
+  }
+
+  onDeleteCollection() {
+    this.videoService.deleteVideoCollection(this.videoId).subscribe({
+      error: (err) => {
+        this.ngZone.run(() => {
+          this.errorMessage = "An error occurred while deleting the video";
+          this.cdr.detectChanges();
+        });
+        console.error('deleting video collection error: ', err);
       }
     })
   }

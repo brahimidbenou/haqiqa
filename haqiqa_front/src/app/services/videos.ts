@@ -77,10 +77,6 @@ export class Videos {
     });
   }
 
-  // updateVideoTitle(id: string, newTitle: string) {
-  //   return this.http.put(`${}`)
-  // }
-
   deleteVideo(id: string) {
     return this.http.delete<void>(`${this.apiUrl}/delete/${id}`, {
       headers: {
@@ -98,21 +94,29 @@ export class Videos {
   }
 
   transcribe(id: string, objectKey: string) {
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${this.authService.getToken()}`
-  });
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
 
-  const params = new HttpParams().set('objectKey', objectKey);
+    const params = new HttpParams().set('objectKey', objectKey);
 
-  return this.http.post<any>(
-    `${this.apiUrl}/start-transcription/${id}`,
-    {}, 
-    { headers, params }
-  );
-}
+    return this.http.post<any>(
+      `${this.apiUrl}/start-transcription/${id}`,
+      {}, 
+      { headers, params }
+    );
+  }
 
   analyze(id: string) {
     return this.http.post<any>(`${this.apiUrl}/analyze/${id}`, {}, {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      }
+    });
+  }
+
+  deleteVideoCollection(id: string) {
+    return this.http.delete<void>(`${this.apiUrl}/delete-video-collection/${id}`, {
       headers: {
         'Authorization': `Bearer ${this.authService.getToken()}`
       }

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -24,7 +25,6 @@ import com.haqiqa.haqiqa.repositories.VideoRepository;
 
 import reactor.core.publisher.Flux;
 
-
 @Service
 public class AiService {
     private final WebClient aiServiceWebClient;
@@ -37,7 +37,7 @@ public class AiService {
 
     private static final Duration ASYNC_TIMEOUT = Duration.ofSeconds(60);
     private static final Duration LLM_TIMEOUT = Duration.ofSeconds(120);
-    
+
     public AiService(WebClient aiServiceWebClient) {
         this.aiServiceWebClient = aiServiceWebClient;
     }
@@ -54,7 +54,7 @@ public class AiService {
                 .timeout(ASYNC_TIMEOUT)
                 .block();
     }
-    
+
     public AnalyzeResponse analyzeVideo(String videoId) {
         AnalyzeRequest requestPayload = new AnalyzeRequest(videoId);
 
@@ -94,7 +94,7 @@ public class AiService {
 
         return response;
     }
-    
+
     public Flux<String> streamChat(UUID videoId, String text) throws VideoNotFoundException {
         Message message = new Message();
         message.setSender(Sender.BOT);
@@ -110,18 +110,28 @@ public class AiService {
                 .accept(MediaType.TEXT_EVENT_STREAM)
                 .retrieve()
                 .bodyToFlux(String.class)
-                .map(data -> { 
+                .map(data -> {
                     if (data == null || "[DONE]".equals(data)) {
-                        return ""; 
+                        return "";
                     }
-                    
+
                     botResponseBuffer.append(data);
-                    return data; 
+                    return data;
                 })
-                .filter(chunk -> !chunk.isEmpty()) 
+                .filter(chunk -> !chunk.isEmpty())
                 .doOnComplete(() -> {
                     message.setText(botResponseBuffer.toString());
                     messageRepository.save(message);
                 });
+    }
+
+    public void deleteVideoCollection(String videoId) {
+        aiServiceWebClient
+            .method(HttpMethod.DELETE)
+            .uri("/delete")
+            .bodyValue(Map.of("video_id", videoId))
+            .retrieve()
+            .bodyToMono(Void.class)
+            .block();
     }
 }

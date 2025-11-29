@@ -120,3 +120,7 @@ src/environments/environment*.ts
 # Temporary data
 tmp/
 temp/
+
+# ChromaDB
+chroma_db/
+chroma_db

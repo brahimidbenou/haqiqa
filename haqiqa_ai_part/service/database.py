@@ -200,9 +200,7 @@ def embed_script(video_id):
 
 def delete_video_collection(video_id):
     collection_name = f"video_{video_id}"
-    collection = Chroma(
-        client=ai_models.db_client,
-        collection_name=collection_name,
-        embedding_function=ai_models.embed_model
-    )
-    collection.delete()
+    try:
+        ai_models.db_client.delete_collection(collection_name)
+    except Exception as e:
+        print(f"Error deleting collection {collection_name}: {e}")

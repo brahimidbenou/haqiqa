@@ -202,4 +202,14 @@ public class VideoController {
             return ResponseEntity.status(504).body("AI service timeout or error: " + e.getMessage());
         }
     }
+
+    @DeleteMapping("/delete-video-collection/{id}")
+    public ResponseEntity<?> deleteVideoCollection(@PathVariable String id) {
+        try {
+            aiService.deleteVideoCollection(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(504).body("AI service timeout or error: " + e.getMessage());
+        }
+    }
 }
