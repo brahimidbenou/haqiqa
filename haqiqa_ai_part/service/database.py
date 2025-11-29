@@ -196,5 +196,13 @@ def embed_script(video_id):
         collection_name=collection_name,
         embedding_function=ai_models.embed_model
     )
-
     vector_store.add_documents(docs_to_add, ids=chunk_ids)
+
+def delete_video_collection(video_id):
+    collection_name = f"video_{video_id}"
+    collection = Chroma(
+        client=ai_models.db_client,
+        collection_name=collection_name,
+        embedding_function=ai_models.embed_model
+    )
+    collection.delete()

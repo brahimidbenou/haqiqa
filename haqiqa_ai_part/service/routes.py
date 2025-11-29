@@ -5,7 +5,7 @@ from functools import wraps
 from .config import INTERNAL_API_KEY
 from .tasks import process_video_task
 from .utils import get_summary, get_title, get_rag_response
-from .database import update_video_title, update_video_summary
+from .database import update_video_title, update_video_summary, delete_video_collection
 
 bp = Blueprint('api', __name__)
 
@@ -40,7 +40,7 @@ def handle_transcribe_request():
         "video_id": video_id
     }), 202
 
-@bp.route('/analyze', methods=['Post'])
+@bp.route('/analyze', methods=['POST'])
 @require_api_key
 def analyze_handler():
     data = request.get_json()
@@ -65,7 +65,7 @@ def analyze_handler():
 
     return jsonify(resp), 200
 
-@bp.route('/ask/stream', methods=['Post'])
+@bp.route('/ask/stream', methods=['POST'])
 @require_api_key
 def ask_haqiqa_bot():
     data = request.json
@@ -80,7 +80,7 @@ def ask_haqiqa_bot():
 
     return Response(generate(), mimetype="text/event-stream")
 
-@bp.route('/ask', methods=['Post'])
+@bp.route('/ask', methods=['POST'])
 @require_api_key
 def ask_haqiqa():
     data = request.json
@@ -94,3 +94,13 @@ def ask_haqiqa():
         return jsonify({"error": response.get("error", "error")}), 500
     
     return jsonify(response), 200
+
+@bp.route('/delete', methods=['DELETE'])
+@require_api_key
+def delete_video():
+    data = request.json
+    video_id = data.get('video_id')
+    if not video_id:
+        return jsonify({"error": "Missing 'video_id'"}), 400
+    delete_video_collection(video_id)
+    return jsonify({"message": "Video collection deleted successfully"}), 200
