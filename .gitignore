@@ -115,6 +115,7 @@ src/environments/environment*.ts
 
 # Local databases
 *.sqlite
+*.sqlite3
 *.db
 
 # Temporary data
@@ -123,4 +124,3 @@ temp/
 
 # ChromaDB
 chroma_db/
-chroma_db
