@@ -1,4 +1,4 @@
-import { isPlatformBrowser, NgFor, NgIf } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, NgZone, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Navbar } from "../navbar/navbar";
 import { Router } from '@angular/router';
@@ -7,11 +7,12 @@ import { Auth } from '../services/auth';
 import { finalize, Subscription } from 'rxjs';
 import { MoreOptions } from '../more-options/more-options';
 import { DeleteVideoConfirmation } from "../delete-video-confirmation/delete-video-confirmation";
+import { EditTitle } from "../edit-title/edit-title";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, Navbar, NgIf, MoreOptions, DeleteVideoConfirmation],
+  imports: [CommonModule, Navbar, MoreOptions, DeleteVideoConfirmation, EditTitle],
   templateUrl: './myvideos.html',
   styleUrl: './myvideos.css',
 })
@@ -23,6 +24,9 @@ export class Myvideos implements OnInit, AfterViewInit, OnDestroy {
   page = 0;
   isLoading = false;
   showDeleteConf = false;
+  showEditTitle = false;
+  videoTitleToEdit!: string;
+  videoIdToEdit!: string;
   toDelete!: string;
   keyToDelete!: string;
   thumbnailToDelete!: string;
@@ -163,5 +167,27 @@ export class Myvideos implements OnInit, AfterViewInit, OnDestroy {
 
   closeConfPopup() {
     this.showDeleteConf = false;
+  }
+
+  reloadVideos() {
+    this.ngZone.run(() => {
+      this.videosUrl = [];
+      this.total = 0;
+      this.page = 0;
+      this.observer?.disconnect();
+      this.observer = undefined;
+      this.loadVideos();
+      this.cdr.detectChanges();
+    });
+  }
+
+  closeEditTitlePopup() {
+    this.showEditTitle = false;
+  }
+
+  openEditTitle(videoId: string, title: string) {
+    this.videoIdToEdit = videoId;
+    this.videoTitleToEdit = title;
+    this.showEditTitle = true;
   }
 }

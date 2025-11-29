@@ -17,7 +17,7 @@
     position: absolute;
     top: 10px;
     left: 300px;
-    background: linear-gradient(135deg, #09090b 0%, #18181b 100%);
+    background: var(--bg-main);
 }
 
 .loading {
@@ -31,8 +31,8 @@
 .loading div {
     width: 30px;
     height: 30px;
-    border: 5px solid rgba(255, 255, 255, 0.3);
-    border-top-color: #000000;
+    border: 5px solid var(--border-subtle);
+    border-top-color: var(--bg-main-dark);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -62,8 +62,8 @@
     width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: contain;
-    background-color: #000000;
-    box-shadow: 0 2px 4px #00000067;
+    background-color: var(--bg-main-dark);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     border-radius: 10px;
 }
 
@@ -72,24 +72,23 @@
     flex-direction: column;
     gap: 10px;
     padding: 20px;
-    box-shadow: 0 2px 4px #00000031;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
-    background: #18181b80;
-    border: 1px solid #3f3f46;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
     border-radius: 16px;
 }
 
 .video-overlay h1 {
     font-size: 27px;
     font-weight: bold;
-    color: #1E3A8A;
+    color: var(--text-main);
     padding-bottom: 10px;
-    border-bottom: 1px solid #3f3f46;
+    border-bottom: 1px solid var(--border-main);
     font-style: normal;
     font-weight: 700;
     font-size: 20.4px;
     line-height: 32px;
-    color: #FFFFFF;
 }
 
 .video-overlay p {
@@ -97,13 +96,13 @@
     font-weight: 400;
     font-size: 13.6px;
     line-height: 24px;
-    color: #ddd;
+    color: var(--text-main);
 }
 
 .load {
     width: 100%;
     height: 10px;
-    background: linear-gradient(90deg, #3f3f46, #52525b, #71717a, #52525b, #3f3f46);
+    background: linear-gradient(90deg, var(--border-main), var(--bg-surface-light), var(--text-muted), var(--bg-surface-light), var(--border-main));
     background-size: 300% 100%;
     border-radius: 5px;
     animation: load 2s ease-in-out infinite;
@@ -130,7 +129,7 @@
     right: 15px;
     height: calc(100% - 40px);
     width: 400px;
-    box-shadow: 0 2px 6px #00000031;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
 }
 
@@ -141,9 +140,9 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-    color: #ff402f;
-    background: #8180804d;
-    box-shadow: 0 2px 6px #00000031;
+    color: var(--error);
+    background: var(--bg-surface);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     min-height: 300px;
 }

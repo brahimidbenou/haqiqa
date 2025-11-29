@@ -17,7 +17,7 @@
     top: 10px;
     left: 300px;
     padding: 30px;
-    background: linear-gradient(135deg, #09090b 0%, #18181b 100%);
+    background: var(--bg-main);
 }
 
 .avatar {
@@ -33,7 +33,7 @@
     width: 100px;
     max-width: 100px;
     border-radius: 50%;
-    border: 1px solid #666666;
+    border: 1px solid var(--text-muted);
     object-fit: cover;
 }
 
@@ -51,14 +51,14 @@
     width: 150px;
     height: 40px;
     cursor: pointer;
-    background: linear-gradient(135deg, #27272a 0%, #3f3f46 100%);
+    background: var(--primary);
     border-radius: 8px;
     border: none;
     font-style: normal;
     font-weight: 500;
     font-size: 13.6px;
     line-height: 24px;
-    color: #FFFFFF;
+    color: var(--text-on-primary);
     text-align: center;
 }
 
@@ -67,14 +67,22 @@
     width: 150px;
     height: 40px;
     cursor: pointer;
-    background: linear-gradient(135deg, #27272a 0%, #3f3f46 100%);
+    background: var(--primary);
     border-radius: 8px;
     border: none;
     font-style: normal;
     font-weight: 500;
     font-size: 13.6px;
     line-height: 24px;
-    color: #FFFFFF;
+    color: var(--text-on-primary);
+}
+
+.edit-picture:hover {
+    background-color: var(--primary-light);
+}
+
+.buttons button:hover {
+    background-color: var(--primary-light);
 }
 
 input[type="file"] {
@@ -89,8 +97,8 @@ input[type="file"] {
     padding: 30px 40px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    background: #18181b80;
-    border: 1px solid #3f3f46;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
     border-radius: 16px;
 }
 
@@ -109,7 +117,7 @@ input[type="file"] {
 .item label {
     font-weight: 600;
     font-size: 14px;
-    color: #ddd;
+    color: var(--text-main);
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
@@ -118,24 +126,24 @@ input[type="file"] {
 
 .item input {
     padding: 10px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-main);
     font-size: 15px;
     outline: none;
     height: 45px;
     transition: border-color 0.2s ease;
     box-sizing: border-box;
-    background: #27272a;
-    border: 1px solid #3f3f46;
+    background: var(--bg-surface-deep);
+    border: 1px solid var(--border-main);
     border-radius: 12px;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    color: #FFFFFF;
+    color: var(--text-main);
 }
 
 .item input:focus {
-    border: 1px solid #666666;
+    border: 1px solid var(--text-muted);
 }
 
 .action-buttons {
@@ -157,7 +165,7 @@ input[type="file"] {
 }
 
 .apply-btn {
-    background: linear-gradient(135deg, #27272a 0%, #3f3f46 100%);
+    background: var(--primary);
     color: white;
     height: 45px;
     width: 100%;
@@ -167,11 +175,11 @@ input[type="file"] {
     font-weight: 500;
     font-size: 13.6px;
     line-height: 24px;
-    color: #FFFFFF;
+    color: var(--text-on-primary);
 }
 
 .apply-btn:hover {
-    background-color: #52525b;
+    background-color: var(--primary-light);
 }
 
 .cancel-btn {
@@ -179,18 +187,18 @@ input[type="file"] {
     height: 45px;
     width: 100px;
     cursor: pointer;
-    background: linear-gradient(135deg, #27272a 0%, #3f3f46 100%);
+    background: var(--bg-surface-light);
     border-radius: 8px;
     border: none;
     font-style: normal;
     font-weight: 500;
     font-size: 13.6px;
     line-height: 24px;
-    color: #FFFFFF;
+    color: var(--text-main);
 }
 
 .cancel-btn:hover {
-    background-color: #3f3f46;
+    background-color: var(--bg-surface-deep);
 }
 
 .delete-section {
@@ -199,7 +207,7 @@ input[type="file"] {
 }
 
 .delete-account-btn {
-    background-color: #dc3545;
+    background-color: var(--error);
     color: white;
     border: none;
     font-weight: 600;
@@ -210,7 +218,7 @@ input[type="file"] {
     font-weight: 500;
     font-size: 13.6px;
     line-height: 24px;
-    color: #FFFFFF;
+    color: var(--text-on-primary);
 }
 
 .delete-account-btn:hover {
@@ -218,11 +226,11 @@ input[type="file"] {
 }
 
 .error {
-    color: #b00020;
+    color: var(--error);
 }
 
 .success {
-    color: #20a020;
+    color: var(--success);
 }
 
 @media screen and (max-width: 1200px) {

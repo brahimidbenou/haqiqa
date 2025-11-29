@@ -17,7 +17,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #33333300;
+    background-color: transparent;
     backdrop-filter: blur(4px);
     width: 100%;
     height: 100%;
@@ -30,7 +30,7 @@ body {
 .ripple {
     height: 0px;
     width: 0px;
-    border: 2px solid #919191;
+    border: 2px solid var(--text-muted);
     border-radius: 50%;
     position: absolute;
     animation: growing 1.8s infinite;
@@ -83,7 +83,7 @@ body {
     position: absolute;
     top: 10px;
     left: 300px;
-    background: linear-gradient(135deg, #09090b 0%, #18181b 100%);
+    background: var(--bg-main);
 }
 
 .upload-title {
@@ -95,18 +95,18 @@ body {
     font-weight: 700;
     font-size: 30px;
     line-height: 48px;
-    color: #FFFFFF;
+    color: var(--text-main);
 }
 
 .upload-box {
-    border: 1px dashed #3f3f46;
+    border: 1px dashed var(--border-main);
     border-radius: 10px;
     text-align: center;
     width: calc(100% - 40px);
     min-width: 300px;
     max-width: 1000px;
-    background-color: #18181b8e;
-    border-color: #27272a;
+    background-color: var(--bg-surface);
+    border-color: var(--border-subtle);
     transition: background-color 0.3s, border-color 0.3s;
     display: flex;
     flex-direction: column;
@@ -116,7 +116,7 @@ body {
 
 .upload-box label {
     font-size: 18px;
-    color: #333;
+    color: var(--text-main);
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -136,8 +136,8 @@ body {
 }
 
 .upload-box:hover {
-    background-color: #27272a;
-    border-color: #3f3f46;
+    background-color: var(--bg-surface-deep);
+    border-color: var(--border-main);
 }
 
 .drop {
@@ -145,7 +145,7 @@ body {
     font-weight: 600;
     font-size: 17px;
     line-height: 28px;
-    color: #FFFFFF;
+    color: var(--text-main);
 }
 
 .click {
@@ -155,12 +155,12 @@ body {
     line-height: 20px;
     display: flex;
     align-items: center;
-    color: #94A3B8;
+    color: var(--text-muted);
 }
 
 .upload-btn {
-    background-color: #3f3f46;
-    color: white;
+    background-color: var(--primary);
+    color: var(--text-on-primary);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -170,11 +170,11 @@ body {
 }
 
 .upload-btn:hover {
-    background-color: #52525b;
+    background-color: var(--primary-light);
 }
 
 .error-message {
-    color: red;
+    color: var(--error);
     font-size: 14px;
 }
 
@@ -193,8 +193,8 @@ body {
     width: 280px;
     height: 100px;
     padding: 20px;
-    background: rgba(24, 24, 27, 0.5);
-    border: 1px dashed #3f3f46;
+    background: var(--bg-surface);
+    border: 1px dashed var(--border-main);
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -204,7 +204,7 @@ body {
 }
 
 .item:hover {
-    background-color: #27272a;
+    background-color: var(--bg-surface-deep);
 }
 
 @media screen and (max-width: 1200px) {

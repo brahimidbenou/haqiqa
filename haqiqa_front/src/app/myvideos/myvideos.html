@@ -5,7 +5,15 @@
     [key]="keyToDelete"
     [thumbnail]="thumbnailToDelete"
     (close)="closeConfPopup()"
+    (loadVideos)="reloadVideos()"
 ></app-delete-video-confirmation>
+<app-edit-title
+    *ngIf="showEditTitle"
+    [videoTitle]="videoTitleToEdit"
+    [videoId]="videoIdToEdit"
+    (close)="closeEditTitlePopup()"
+    (loadVideos)="reloadVideos()"
+></app-edit-title>
 
 <div class="container">
     <h1 class="home-title">My Videos</h1>
@@ -21,6 +29,7 @@
                 <app-more-options 
                     class="options" 
                     (deleteVideo)="openDelete(video.id, video.key, video.thumbnail)"
+                    (editTitle)="openEditTitle(video.id, video.title)"
                 ></app-more-options>
                 <p><img src="/assets/date.svg" alt="uploaded-date">{{ formatUploadedDate(video.uploadedAt) }}</p>
             </div>

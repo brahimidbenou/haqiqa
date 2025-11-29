@@ -7,8 +7,11 @@ export interface Video {
   id: string;
   title: string;
   summary: string;
-  objectKey: string;
   userId: string;
+  objectKey:string;
+  thumbnail: string;
+  uploadedAt: string;
+  duration: string
 }
 
 export interface VideoUrl {
@@ -67,12 +70,16 @@ export class Videos {
   }
 
   updateVideo(id: string, video: Partial<Video>) {
-    return this.http.put<Video>(`${this.apiUrl}/${id}`, video, {
+    return this.http.put<Video>(`${this.apiUrl}/update/${id}`, video, {
       headers: {
         'Authorization': `Bearer ${this.authService.getToken()}`
       }
     });
   }
+
+  // updateVideoTitle(id: string, newTitle: string) {
+  //   return this.http.put(`${}`)
+  // }
 
   deleteVideo(id: string) {
     return this.http.delete<void>(`${this.apiUrl}/delete/${id}`, {

@@ -11,12 +11,12 @@
     height: 100%;
     width: 100%;
     padding: 10px;
-    background: #18181b80;
+    background: var(--bg-surface);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid #3f3f46;
+    border: 1px solid var(--border-main);
 }
 
 .chat-content {
@@ -35,7 +35,7 @@
 
 .user-message {
     align-self: flex-end;
-    background-color: #3f3f46;
+    background-color: var(--bg-surface-light);
     padding: 10px 15px;
     border-radius: 15px 15px 0 15px;
     max-width: 70%;
@@ -43,12 +43,12 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 22px;
-    color: #FFFFFF;
+    color: var(--text-main);
 }
 
 .bot-message {
     align-self: flex-start;
-    background-color: #27272a;
+    background-color: var(--bg-surface-deep);
     padding: 10px 15px;
     border-radius: 15px 15px 15px 0;
     max-width: 70%;
@@ -56,7 +56,7 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 22px;
-    color: #FFFFFF;
+    color: var(--text-main);
 }
 
 .input-container {
@@ -67,12 +67,12 @@
 .message-input {
     flex: 1;
     padding: 10px;
-    border: 1px solid #3f3f46;
+    border: 1px solid var(--border-main);
     border-radius: 15px;
     margin-right: 5px;
     font-size: 16px;
-    background: #27272a;
-    color: #FFFFFF;
+    background: var(--bg-surface-deep);
+    color: var(--text-main);
     height: 45px;
     font-size: 13px;
     line-height: 22px;
@@ -88,7 +88,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #3f3f46;
+    background-color: var(--primary);
     border: none;
     border-radius: 15px;
     cursor: pointer;
@@ -97,7 +97,7 @@
 }
 
 .send-button:hover {
-    background-color: #52525b;
+    background-color: var(--primary-light);
 }
 
 .send-button img {
@@ -115,7 +115,7 @@
 .dot {
     width: 8px;
     height: 8px;
-    background-color: #ffffff;
+    background-color: var(--text-main);
     border-radius: 50%;
     opacity: 0.6;
     animation: pulse 1.4s infinite ease-in-out both;
@@ -162,7 +162,7 @@
 .top-loading-bar .bar {
     width: 40px;
     height: 5px;
-    background-color: #ffffff90;
+    background-color: var(--text-main);
     border-radius: 4px;
     animation: bounceBar 1s infinite ease-in-out;
     position: absolute;

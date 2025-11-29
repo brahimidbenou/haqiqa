@@ -1,23 +1,26 @@
 .more-container {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 7px;
+    right: 2px;
 }
 
 .more-btn {
-    background: none;
     border: none;
-    font-size: 22px;
+    padding: 5px;
     cursor: pointer;
-    color: #fff;
+}
+
+.more-btn:hover {
+    background-color: var(--bg-surface-deep);
+    border-radius: 50%;
 }
 
 .menu {
     position: absolute;
-    right: 20px;
-    top: 10px;
-    background: #1c1c1e;
-    border: 1px solid #ffffff20;
+    right: 25px;
+    top: 20px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
     border-radius: 8px;
     width: 150px;
 }
@@ -60,7 +63,7 @@
     width: calc(100% - 20px);
     padding: 10px;
     background: transparent;
-    color: #fff;
+    color: var(--text-main);
     border: none;
     text-align: left;
     cursor: pointer;
@@ -69,9 +72,9 @@
 }
 
 .menu-item:hover {
-    background: #27272a;
+    background: var(--bg-surface-deep);
 }
 
 .menu-item.delete {
-    color: #f87171;
+    color: var(--error);
 }

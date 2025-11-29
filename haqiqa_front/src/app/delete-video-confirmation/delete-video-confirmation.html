@@ -3,9 +3,13 @@
         <h3>Delete Video</h3>
         <p>Are you sure you want to delete this video?</p>
 
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>        
+
         <div class="popup-actions">
             <button class="cancel-btn" (click)="onCloseClick($event)">Cancel</button>
-            <button class="delete-btn" (click)="onDelete(); onCloseClick($event)">Delete</button>
+            <button class="delete-btn" (click)="onDeleteClick($event)">Delete</button>
         </div>
     </div>
 </div>

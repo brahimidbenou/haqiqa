@@ -13,7 +13,7 @@ export class MoreOptions {
   showMenu = false;
   isHiding = false;
   
-  // @Output() editTitle = new EventEmitter<string>();
+  @Output() editTitle = new EventEmitter<string>();
   @Output() deleteVideo = new EventEmitter();
 
   onMoreClick(ev: MouseEvent) {
@@ -34,6 +34,7 @@ export class MoreOptions {
     ev.stopPropagation();
     ev.preventDefault();
     this.showMenu = false;
+    this.editTitle.emit();
   }
 
   onDeleteClick(ev: MouseEvent) {

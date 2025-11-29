@@ -31,7 +31,7 @@
 }
 
 .cancel-btn,
-.delete-btn {
+.save-btn {
     padding: 10px 15px;
     border-radius: 8px;
     border: none;
@@ -43,7 +43,23 @@
     color: var(--text-main);
 }
 
-.delete-btn {
-    background: var(--error);
-    color: var(--text-on-primary);
+.save-btn {
+    background: var(--primary);
+    color: var(--text-main);
+}
+
+.title-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+    background: var(--bg-surface-deep);
+    border: 1px solid var(--border-main);
+    color: var(--text-main);
+}
+
+.error-message {
+    color: var(--error);
+    font-size: 14px;
+    margin-top: 10px;
 }
