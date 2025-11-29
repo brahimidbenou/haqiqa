@@ -2,6 +2,7 @@
   --bg-main: #141414;
   --bg-main-light: #3B3B3B;
   --bg-main-dark: #000000;
+  --bg-red-logout: #f6494987;
 
   --bg-surface: #1F1F1F;
   --bg-surface-light: #454545;
@@ -18,7 +19,7 @@
   --text-on-primary: #FFFFFF;
 
   --border-main: #2E2E2E;
-  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-subtle: #ffffff0f;
 
   --success: #16A34A;
   --error: #E53E3E;

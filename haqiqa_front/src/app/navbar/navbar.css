@@ -86,9 +86,6 @@ a {
   height: 30px;
   width: 30px;
   object-fit: contain;
-  /* Optional: Filter to colorize icons if they are SVGs/PNGs that need it, 
-     but usually better to handle icon color via mask or SVG fill if possible. 
-     For now, assuming images are colored or neutral. */
 }
 
 .links a>p {
@@ -129,7 +126,7 @@ a {
 }
 
 .logout:hover {
-  background: var(--bg-surface-light);
+  background: var(--bg-red-logout);
 }
 
 .logout img {

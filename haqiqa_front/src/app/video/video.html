@@ -20,18 +20,18 @@
       <div class="video-content">
         <video [src]="videoUrl.url" class="video" controls></video>
 
-        <div *ngIf="(status === 'COMPLETED' && !isAnlyzing); else loading">
+        <ng-container *ngIf="(status === 'COMPLETED' && !isAnlyzing)">
           <div class="video-overlay">
             <h1>{{ videoUrl.title }}</h1>
             <p>{{ videoUrl.summary }}</p>
           </div>
-        </div>
+        </ng-container>
 
-        <ng-template #loading>
+        <ng-container *ngIf="isAnlyzing || status === 'PROCESSING' || status === 'PENDING'">
           <div class="video-overlay">
             <p class="load" *ngFor="let _ of loaders"></p>
           </div>
-        </ng-template> 
+        </ng-container>
       </div>
       <div class="chat">
         <app-chat [videoId]="id!"></app-chat>

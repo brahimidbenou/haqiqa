@@ -1,0 +1,27 @@
+.no-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    min-width: 200px;
+    height: max-content;
+    min-height: 50px;
+    border-radius: 10px;
+    border: 2px solid var(--border-subtle);
+    background: var(--bg-surface-deep);
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 4px var(--border-subtle);
+    transition: all 0.3s ease-in-out;
+}
+
+.no-item:hover {
+    background: var(--bg-surface);
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px var(--border-subtle);
+}
+
+.no-item h1 {
+    color: var(--text-muted);
+    font-size: 21px;
+}

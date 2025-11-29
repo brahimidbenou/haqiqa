@@ -25,14 +25,20 @@ export class DeleteVideoConfirmation {
     private ngZone: NgZone,
     private cdr: ChangeDetectorRef
   ) { }
-  
-  onDelete() {
+
+  onDelete(ev?: MouseEvent) {
     this.errorMessage = "";
     this.videoService.deleteVideo(this.videoId).subscribe({
       next: () => {
         this.onDeleteFile(this.key);
         this.onDeleteFile(this.thumbnail);
         this.onDeleteCollection();
+        this.onLoadVideos();
+        if (ev) {
+          this.onCloseClick(ev);
+        } else {
+          this.close.emit();
+        }
       },
       error: (err) => {
         this.ngZone.run(() => {
@@ -78,9 +84,7 @@ export class DeleteVideoConfirmation {
     this.close.emit();
   }
 
-  onDeleteClick(ev: MouseEvent) { 
-    this.onDelete();
-    this.onLoadVideos();
-    this.onCloseClick(ev);
+  onDeleteClick(ev: MouseEvent) {
+    this.onDelete(ev);
   }
 }

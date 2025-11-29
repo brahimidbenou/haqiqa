@@ -20,6 +20,11 @@
     background: var(--bg-main);
 }
 
+app-no-item {
+    align-self: center;
+    margin-top: 50px;
+}
+
 .loading {
     display: flex;
     justify-content: center;

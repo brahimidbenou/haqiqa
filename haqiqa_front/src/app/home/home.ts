@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
-import  '../services/videos';
+import '../services/videos';
 import { Videos } from '../services/videos';
 import { Auth } from '../services/auth';
 import { Navbar } from "../navbar/navbar";
@@ -21,6 +21,7 @@ export class Home {
   videoSummary: string = 'Video summary.';
   userId: string = '';
   errorMessage: string = '';
+  successMessage: string = '';
   uploading: boolean = false;
 
   constructor(
@@ -33,6 +34,7 @@ export class Home {
 
   onUpload() {
     this.errorMessage = '';
+    this.successMessage = '';
     this.uploading = true;
     this.userId = this.authService.getUserInfo()?.id || '';
     const formData = new FormData();
@@ -48,7 +50,7 @@ export class Home {
     formData.append('thumbnail', this.thumbnailFile);
     formData.append('title', this.videoTitle);
     formData.append('summary', this.videoSummary);
-    formData.append('userId', this.userId); 
+    formData.append('userId', this.userId);
 
     this.videoService.uploadFile(formData).pipe(
       finalize(() => {
@@ -60,9 +62,13 @@ export class Home {
     ).subscribe({
       next: (video) => {
         this.errorMessage = '';
+        this.successMessage = 'Video uploaded successfully!';
         this.selectedFile = null;
+        this.thumbnailFile = null;
         this.onTranscribe(video.id, video.objectKey);
-        this.router.navigate([`/video/${video.id}`])
+        setTimeout(() => {
+          this.router.navigate([`/video/${video.id}`])
+        }, 1000);
       },
       error: (err) => {
         this.errorMessage = 'Error uploading video.';
@@ -85,6 +91,8 @@ export class Home {
 
     const file = input.files[0];
     this.selectedFile = file;
+    this.errorMessage = '';
+    this.successMessage = '';
 
     const video = document.createElement('video');
     const canvas = document.createElement('canvas');
@@ -105,11 +113,6 @@ export class Home {
       canvas.toBlob((blob) => {
         if (blob) {
           this.thumbnailFile = new File([blob], 'thumbnail.jpg', { type: 'image/jpeg' });
-          this.ngZone.run(() => {
-            setTimeout(() => {
-              this.onUpload();
-            }, 10);
-          });
         }
         URL.revokeObjectURL(video.src);
       }, 'image/jpeg', 0.8);

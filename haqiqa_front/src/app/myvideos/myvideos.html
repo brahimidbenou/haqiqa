@@ -1,45 +1,54 @@
 <app-navbar></app-navbar>
 <app-delete-video-confirmation 
     *ngIf="showDeleteConf" 
-    [videoId]="toDelete"
+    [videoId]="toDelete" 
     [key]="keyToDelete"
     [thumbnail]="thumbnailToDelete"
     (close)="closeConfPopup()"
     (loadVideos)="reloadVideos()"
-></app-delete-video-confirmation>
-<app-edit-title
-    *ngIf="showEditTitle"
-    [videoTitle]="videoTitleToEdit"
+    ></app-delete-video-confirmation>
+<app-edit-title 
+    *ngIf="showEditTitle" 
+    [videoTitle]="videoTitleToEdit" 
     [videoId]="videoIdToEdit"
-    (close)="closeEditTitlePopup()"
+    (close)="closeEditTitlePopup()" 
     (loadVideos)="reloadVideos()"
-></app-edit-title>
+    ></app-edit-title>
 
 <div class="container">
     <h1 class="home-title">My Videos</h1>
-    <div class="videos" *ngIf="videosUrl.length">
-        <div *ngFor="let video of videosUrl" class="video-item" (click)="clickOnVideo(video.id)">
-            <div class="video-content">
-                <img [src]="video.url" class="thumbnail"/>
-                <img src="/assets/play.svg" alt="play-icon" class="play">
-                <p class="time">{{ formatDuration(video.duration) }}</p>
-            </div>
-            <div class="video-info">
-                <h2>{{ video.title }}</h2>
-                <app-more-options 
-                    class="options" 
-                    (deleteVideo)="openDelete(video.id, video.key, video.thumbnail)"
-                    (editTitle)="openEditTitle(video.id, video.title)"
-                ></app-more-options>
-                <p><img src="/assets/date.svg" alt="uploaded-date">{{ formatUploadedDate(video.uploadedAt) }}</p>
+
+    <ng-container *ngIf="videosUrl.length > 0; else emptyState">
+        <div class="videos">
+            <div *ngFor="let video of videosUrl" class="video-item" (click)="clickOnVideo(video.id)">
+                <div class="video-content">
+                    <img [src]="video.url" class="thumbnail" />
+                    <img src="/assets/play.svg" alt="play-icon" class="play">
+                    <p class="time">{{ formatDuration(video.duration) }}</p>
+                </div>
+                <div class="video-info">
+                    <h2>{{ video.title }}</h2>
+                    <app-more-options class="options" (deleteVideo)="openDelete(video.id, video.key, video.thumbnail)"
+                        (editTitle)="openEditTitle(video.id, video.title)"></app-more-options>
+                    <p><img src="/assets/date.svg" alt="uploaded-date">{{ formatUploadedDate(video.uploadedAt) }}</p>
+                </div>
             </div>
         </div>
-    </div>
-    <ng-container *ngIf="isLoading">
-        <div class="loading">
+        <div class="loading" *ngIf="isLoading">
             <div class="spinner"></div>
         </div>
     </ng-container>
+
+    <ng-template #emptyState>
+        <ng-container *ngIf="isLoading; else noData">
+            <div class="loading">
+                <div class="spinner"></div>
+            </div>
+        </ng-container>
+        <ng-template #noData>
+            <app-no-item message="No videos found"></app-no-item>
+        </ng-template>
+    </ng-template>
 
     <div #infiniteScrollAnchor class="scroll-anchor"></div>
 </div>

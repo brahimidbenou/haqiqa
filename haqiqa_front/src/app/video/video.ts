@@ -17,7 +17,7 @@ import { VideoStatus, VideoWebsocket } from '../services/video-websocket';
 export class Video implements OnInit, OnDestroy {
   videoUrl?: VideoUrl;
   id: string | null = "";
-  status: VideoStatus = 'COMPLETED';
+  status: VideoStatus = 'PROCESSING';
   private statusSub?: Subscription;
   isLoading: boolean = false;
   isAnlyzing: boolean = false;
@@ -33,22 +33,20 @@ export class Video implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.ngZone.run(() => {
-      this.id = this.route.snapshot.paramMap.get('id');
-      if (this.id) {
-        this.ws.connect(this.id);
-        this.statusSub = this.ws.statusUpdates$.subscribe((status) => {
+    this.id = this.route.snapshot.paramMap.get('id');
+    if (this.id) {
+      this.ws.connect(this.id);
+      this.statusSub = this.ws.statusUpdates$.subscribe((status) => {
+        this.ngZone.run(() => {
           this.status = status;
-          this.cdr.markForCheck();
+          this.cdr.detectChanges();
           if (status == 'COMPLETED') {
             this.onAnalyze(this.id!);
           }
-        })
-        if (this.status == 'COMPLETED') {
-          this.getVideo(this.id);
-        }
-      }
-    });
+        });
+      })
+      this.getVideo(this.id);
+    }
   }
 
   ngOnDestroy() {
@@ -67,36 +65,48 @@ export class Video implements OnInit, OnDestroy {
       finalize(() => {
         this.ngZone.run(() => {
           this.isLoading = false;
-          this.cdr.markForCheck();
+          this.cdr.detectChanges();
         });
       })
     ).subscribe({
       next: (resp) => {
-        this.videoUrl = resp;
+        this.ngZone.run(() => {
+          this.videoUrl = resp;
+          this.cdr.detectChanges();
+        });
       },
       error: (err) => {
         this.ngZone.run(() => {
           this.hasError = true;
           this.videoUrl = undefined;
           console.error('cannot find the video:', err);
+          this.cdr.detectChanges();
         });
       }
     });
   }
 
   onAnalyze(id: string) {
-    this.isAnlyzing = true;
+    this.ngZone.run(() => {
+      this.isAnlyzing = true;
+      this.cdr.detectChanges();
+    });
     this.videoService.analyze(id).pipe(
       finalize(() => {
         this.ngZone.run(() => {
           this.isAnlyzing = false;
-          this.cdr.markForCheck();
+          this.cdr.detectChanges();
         });
       })
     ).subscribe({
       next: (resp) => {
-        this.videoUrl!.title = resp.title;
-        this.videoUrl!.summary = resp.summary;
+        this.ngZone.run(() => {
+          if (this.videoUrl) {
+            this.videoUrl.title = resp.title;
+            this.videoUrl.summary = resp.summary;
+          }
+          this.cdr.detectChanges();
+        });
       },
       error: (err) => {
         console.error('Error analyzing video:', err);

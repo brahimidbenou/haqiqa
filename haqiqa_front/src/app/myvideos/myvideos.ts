@@ -8,11 +8,12 @@ import { finalize, Subscription } from 'rxjs';
 import { MoreOptions } from '../more-options/more-options';
 import { DeleteVideoConfirmation } from "../delete-video-confirmation/delete-video-confirmation";
 import { EditTitle } from "../edit-title/edit-title";
+import { NoItem } from '../no-item/no-item';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Navbar, MoreOptions, DeleteVideoConfirmation, EditTitle],
+  imports: [CommonModule, Navbar, MoreOptions, DeleteVideoConfirmation, EditTitle, NoItem],
   templateUrl: './myvideos.html',
   styleUrl: './myvideos.css',
 })
@@ -41,7 +42,7 @@ export class Myvideos implements OnInit, AfterViewInit, OnDestroy {
     private ngZone: NgZone,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
   }
@@ -57,13 +58,13 @@ export class Myvideos implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  private setupIntersectionObserver() {   
+  private setupIntersectionObserver() {
     this.observer = new IntersectionObserver(entries => {
       const entry = entries[0];
       if (entry.isIntersecting && !this.isLoading && this.videosUrl.length < this.total) {
         this.loadVideos();
       }
-    }); 
+    });
 
     if (this.scrollAnchor?.nativeElement) {
       this.observer.observe(this.scrollAnchor.nativeElement);
@@ -81,27 +82,27 @@ export class Myvideos implements OnInit, AfterViewInit, OnDestroy {
 
     this.isLoading = true;
     this.page++;
-    
+
     const sub = videos.pipe(
       finalize(() => {
         this.ngZone.run(() => {
           this.isLoading = false;
-          this.cdr.markForCheck();
+          this.cdr.detectChanges();
           if (isFirstLoad) {
             this.setupIntersectionObserver();
           }
         });
       })
     )
-    .subscribe({
-      next: (resp) => {
-        this.videosUrl = [...this.videosUrl, ...resp.content];
-        this.total = resp.totalElements;
-      },
-      error: (err) => {
-        console.error('Error loading videos:', err);
-      }
-    });
+      .subscribe({
+        next: (resp) => {
+          this.videosUrl = [...this.videosUrl, ...resp.content];
+          this.total = resp.totalElements;
+        },
+        error: (err) => {
+          console.error('Error loading videos:', err);
+        }
+      });
 
     this.subscriptions.add(sub);
   }
@@ -143,7 +144,7 @@ export class Myvideos implements OnInit, AfterViewInit, OnDestroy {
     const matches = duration.match(regex);
 
     if (!matches) {
-      return "00:00"; 
+      return "00:00";
     }
     const hours = parseInt(matches[1] || "0", 10);
     const minutes = parseInt(matches[2] || "0", 10);

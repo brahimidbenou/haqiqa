@@ -9,8 +9,9 @@
         </label>
         <input type="file" id="video-upload" accept="video/*" (change)="onFileSelected($event)" />
     </div>
-    <p class="error-message">{{ errorMessage }}</p>
-    <!-- <button class="upload-btn" (click)="onUpload()">Upload</button> -->
+    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
+    <button class="upload-btn" (click)="onUpload()" [disabled]="!selectedFile">Upload</button>
     <div class="main-func">
         <div class="item">
             <p class="drop">AI-Powered Analysis</p>

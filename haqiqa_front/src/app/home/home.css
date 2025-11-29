@@ -21,7 +21,7 @@ body {
     backdrop-filter: blur(4px);
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 10;
@@ -162,19 +162,31 @@ body {
     background-color: var(--primary);
     color: var(--text-on-primary);
     border: none;
-    padding: 10px 20px;
+    padding: 15px 20px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
+    width: 150px;
 }
 
 .upload-btn:hover {
     background-color: var(--primary-light);
 }
 
+.upload-btn:disabled {
+    background-color: var(--bg-surface-deep);
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
 .error-message {
     color: var(--error);
+    font-size: 14px;
+}
+
+.success-message {
+    color: var(--success);
     font-size: 14px;
 }
 
