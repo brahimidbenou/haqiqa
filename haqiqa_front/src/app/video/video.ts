@@ -72,6 +72,7 @@ export class Video implements OnInit, OnDestroy {
       next: (resp) => {
         this.ngZone.run(() => {
           this.videoUrl = resp;
+          this.status = this.videoUrl.status;
           this.cdr.detectChanges();
         });
       },

@@ -21,7 +21,8 @@ public class VideoMapper {
                         video.getObjectKey(),
                         video.getThumbnail(),
                         video.getUploadedAt(),
-                        video.getDuration()               
+                        video.getDuration(),
+                        video.getStatus()             
                     );
 
     }
@@ -35,6 +36,7 @@ public class VideoMapper {
         video.setThumbnail(videoDto.getThumbnail());
         video.setUploadedAt(videoDto.getUploadedAt());
         video.setDuration(videoDto.getDuration());
+        video.setStatus(videoDto.getStatus());
         return video;
     }
 }

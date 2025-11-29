@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.haqiqa.haqiqa.models.VideoStatus;
+
 public class VideoDto {
     private UUID id;
     private String title;
@@ -13,12 +15,13 @@ public class VideoDto {
     private String thumbnail;
     private LocalDateTime uploadedAt;
     private Duration duration;
+    private VideoStatus status;
 
     public VideoDto() {
     }
 
     public VideoDto(UUID id, String title, String summary, UUID userId, String objectKey, String thumbnail, 
-            LocalDateTime uploadedAt, Duration duration) {
+            LocalDateTime uploadedAt, Duration duration, VideoStatus status) {
         this.id = id;
         this.title = title;
         this.summary = summary;
@@ -27,6 +30,7 @@ public class VideoDto {
         this.thumbnail = thumbnail;
         this.uploadedAt = uploadedAt;
         this.duration = duration;
+        this.status = status;
     }
 
     public UUID getId() {
@@ -91,5 +95,13 @@ public class VideoDto {
 
     public void setDuration(Duration duration) {
         this.duration = duration;
+    }
+
+    public VideoStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(VideoStatus status) {
+        this.status = status;
     }
 }

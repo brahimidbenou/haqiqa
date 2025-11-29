@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Auth } from '../services/auth';
 import { isPlatformBrowser } from '@angular/common';
+import { VideoStatus } from './video-websocket';
 
 export interface Video {
   id: string;
@@ -11,7 +12,8 @@ export interface Video {
   objectKey:string;
   thumbnail: string;
   uploadedAt: string;
-  duration: string
+  duration: string;
+  status: VideoStatus;
 }
 
 export interface VideoUrl {
@@ -24,6 +26,7 @@ export interface VideoUrl {
   thumbnail: string;
   duration: string;
   userId: string;
+  status: VideoStatus;
 }
 
 @Injectable({

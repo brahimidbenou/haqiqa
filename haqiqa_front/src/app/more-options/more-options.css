@@ -17,12 +17,13 @@
 
 .menu {
     position: absolute;
-    right: 25px;
-    top: 20px;
+    right: 30px;
+    top: 10px;
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: 8px;
     width: 150px;
+    z-index: 100;
 }
 
 .menu.show {

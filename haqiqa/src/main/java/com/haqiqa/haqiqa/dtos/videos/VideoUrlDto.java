@@ -1,6 +1,9 @@
 package com.haqiqa.haqiqa.dtos.videos;
 
 import java.util.UUID;
+
+import com.haqiqa.haqiqa.models.VideoStatus;
+
 import java.time.LocalDateTime;
 import java.time.Duration;
 
@@ -14,11 +17,12 @@ public class VideoUrlDto {
     private String key;
     private String thumbnail;
     private Duration duration;
+    private VideoStatus status;
 
     public VideoUrlDto() {
     }
 
-    public VideoUrlDto(UUID id, String title, String summary, UUID userId, LocalDateTime uploadedAt, String url, String key, String thumbnail, Duration duration) {
+    public VideoUrlDto(UUID id, String title, String summary, UUID userId, LocalDateTime uploadedAt, String url, String key, String thumbnail, Duration duration, VideoStatus status) {
         this.id = id;
         this.title = title;
         this.summary = summary;
@@ -28,6 +32,7 @@ public class VideoUrlDto {
         this.key = key;
         this.thumbnail = thumbnail;
         this.duration = duration;
+        this.status = status;
     }
 
     public UUID getId() {
@@ -100,5 +105,13 @@ public class VideoUrlDto {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public VideoStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(VideoStatus status) {
+        this.status = status;
     }
 }

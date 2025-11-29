@@ -101,7 +101,7 @@ public class VideoController {
         Duration ttl = Duration.ofHours(1);
         String url = storageService.presignGetUrl(video.getObjectKey(), ttl);
         VideoUrlDto resp = new VideoUrlDto(video.getId(), video.getTitle(), video.getSummary(), video.getUserId(),
-                video.getUploadedAt(), url, video.getObjectKey(), video.getThumbnail(),video.getDuration());
+                video.getUploadedAt(), url, video.getObjectKey(), video.getThumbnail(),video.getDuration(), video.getStatus());
         return ResponseEntity.ok(resp);
     }
 
@@ -121,6 +121,7 @@ public class VideoController {
             dto.setUserId(video.getUserId());
             dto.setKey(video.getObjectKey());
             dto.setThumbnail(video.getThumbnail());
+            dto.setStatus(video.getStatus());
             
             try {
                 String url = storageService.presignGetUrl(video.getThumbnail(), ttl);
