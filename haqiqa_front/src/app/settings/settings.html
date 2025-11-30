@@ -11,7 +11,7 @@
                         <p class="edit-picture">Edit picture</p>
                     </label>
                     <input type="file" id="edit-avatar" accept="image/*" (change)="onFileSelected($event)"/>
-                    <button class="delete-picture">Delete picture</button>
+                    <button type="button" class="delete-picture" (click)="onDeleteAvatar()">Delete picture</button>
                 </div>
             </div>
             <div class="item">

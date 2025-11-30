@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { User, UserDto } from '../services/user';
 import { FormsModule } from "@angular/forms"; 
 import { Videos } from '../services/videos';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -22,6 +23,7 @@ export class Settings implements OnInit {
   email: string = "";
   password: string = ""; 
   confirmPassword: string = "";
+  toDeleteAvatar: boolean = false;
   loading: boolean = false;
   successMsg: string = '';
   errorMsg: string = '';
@@ -65,6 +67,33 @@ export class Settings implements OnInit {
     });
   }
 
+  onDeleteAvatar() {
+    this.avatarUrl = '';
+    this.toDeleteAvatar = true;
+  }
+
+  deleteAvatar() {
+    if (!this.originalUserInfo) return;
+
+    const avatar = this.originalUserInfo.avatar;
+    if (!avatar) return;
+
+    this.userService.deleteAvatar(avatar).subscribe({
+      next: () => {
+        this.ngZone.run(() => {
+          this.successMsg = "The avatar will be deleted.";
+          this.cdr.detectChanges();
+        });
+      },
+      error: (_err) => {
+        this.ngZone.run(() => {
+          this.errorMsg = "An error occurred while deleting the avatar. Please try again.";
+          this.cdr.detectChanges();
+        });
+      },
+    });
+  }
+
   passwordsMatchValidator() {
     return this.password === this.confirmPassword;
   }
@@ -82,8 +111,14 @@ export class Settings implements OnInit {
       return;
     }
 
+    let updatedAvatar = this.originalUserInfo!.avatar;
+    if (this.toDeleteAvatar) {
+      this.deleteAvatar();
+      updatedAvatar = '';
+    }
+
     let user: UserDto = {
-      avatar: this.originalUserInfo!.avatar,
+      avatar: updatedAvatar,
       firstName: this.firstName.trim(),
       lastName: this.lastName.trim(),
       email: this.email.trim(),

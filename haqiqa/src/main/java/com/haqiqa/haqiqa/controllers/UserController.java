@@ -113,4 +113,14 @@ public class UserController {
         }
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/delete-avatar")
+    public ResponseEntity<Void> deleteAvatar(@RequestParam String avatar) throws Exception {
+        try {
+            storageService.delete(avatar);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return ResponseEntity.noContent().build();
+    }
 }

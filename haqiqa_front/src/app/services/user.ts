@@ -75,4 +75,11 @@ export class User {
     });
   }
 
+  deleteAvatar(avatar: string) {
+    return this.http.delete(`${this.apiUrl}/delete-avatar?avatar=${avatar}`, {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      }
+    });
+  }
 }
