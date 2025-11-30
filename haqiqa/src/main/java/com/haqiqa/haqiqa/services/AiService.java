@@ -42,8 +42,8 @@ public class AiService {
         this.aiServiceWebClient = aiServiceWebClient;
     }
 
-    public TranscribeResponse startTranscription(String videoId, String objectKey) {
-        TranscribeRequest requestPayload = new TranscribeRequest(videoId, objectKey);
+    public TranscribeResponse startTranscription(String videoId, String userId, String objectKey) {
+        TranscribeRequest requestPayload = new TranscribeRequest(videoId, userId, objectKey);
 
         return aiServiceWebClient
                 .post()
@@ -130,6 +130,16 @@ public class AiService {
             .method(HttpMethod.DELETE)
             .uri("/delete")
             .bodyValue(Map.of("video_id", videoId))
+            .retrieve()
+            .bodyToMono(Void.class)
+            .block();
+    }
+
+    public void deleteCollections(String userId) {
+        aiServiceWebClient
+            .method(HttpMethod.DELETE)
+            .uri("/delete-collections")
+            .bodyValue(Map.of("user_id", userId))
             .retrieve()
             .bodyToMono(Void.class)
             .block();

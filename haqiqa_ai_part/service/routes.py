@@ -5,7 +5,7 @@ from functools import wraps
 from .config import INTERNAL_API_KEY
 from .tasks import process_video_task
 from .utils import get_summary, get_title, get_rag_response
-from .database import update_video_title, update_video_summary, delete_video_collection
+from .database import update_video_title, update_video_summary, delete_video_collection, delete_user_collections
 
 bp = Blueprint('api', __name__)
 
@@ -23,15 +23,20 @@ def require_api_key(f):
 @require_api_key
 def handle_transcribe_request():
     data = request.get_json()
-    if not data or 'video_id' not in data or 'object_key' not in data:
-        return jsonify({"error": "Missing video_id or object_key"}), 400
+    if not data or 'video_id' not in data:  
+        return jsonify({"error": "Missing video_id"}), 400
+    if 'user_id' not in data:
+        return jsonify({"error": "Missing user_id"}), 400
+    if 'object_key' not in data:
+        return jsonify({"error": "Missing object_key"}), 400
 
     video_id = data['video_id']
+    user_id = data['user_id']
     object_key = data['object_key']
 
     thread = threading.Thread(
         target=process_video_task, 
-        args=(video_id, object_key)
+        args=(video_id, user_id, object_key)
     )
     thread.start()
 
@@ -104,3 +109,13 @@ def delete_video():
         return jsonify({"error": "Missing 'video_id'"}), 400
     delete_video_collection(video_id)
     return jsonify({"message": "Video collection deleted successfully"}), 200
+
+@bp.route('/delete-collections', methods=['DELETE'])
+@require_api_key
+def delete_collections():
+    data = request.json
+    user_id = data.get('user_id')
+    if not user_id:
+        return jsonify({"error": "Missing 'user_id'"}), 400
+    delete_user_collections(user_id)
+    return jsonify({"message": "User collections deleted successfully"}), 200

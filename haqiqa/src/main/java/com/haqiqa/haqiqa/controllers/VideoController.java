@@ -193,12 +193,12 @@ public class VideoController {
 
     @PostMapping("/start-transcription/{id}")
     @SuppressWarnings("UseSpecificCatch")
-    public ResponseEntity<?> triggerTranscription(@PathVariable String id, @RequestParam String objectKey)
+    public ResponseEntity<?> triggerTranscription(@PathVariable String id, @RequestParam String userId, @RequestParam String objectKey)
             throws VideoNotFoundException, Exception {
         try {
             videoService.updateStatus(id, VideoStatus.PENDING);
             websocketNotifier.sendStatusUpdate(id, VideoStatus.PENDING);
-            TranscribeResponse response = aiService.startTranscription(id, objectKey);
+            TranscribeResponse response = aiService.startTranscription(id, userId, objectKey);
             return ResponseEntity.accepted().body(response);
         } catch (Exception e) {
             videoService.updateStatus(id, VideoStatus.FAILED);
@@ -208,7 +208,7 @@ public class VideoController {
     }
 
     @PostMapping("analyze/{id}")
-    public ResponseEntity<?> getVideoAnalysis(@PathVariable String id) {
+    public ResponseEntity<?> getVideoAnalysis(@PathVariable String id, @RequestBody String userId) {
         try {
             AnalyzeResponse response = aiService.analyzeVideo(id);
             if (response.error() != null) {

@@ -68,7 +68,7 @@ export class Home {
         this.onTranscribe(video.id, video.objectKey);
         setTimeout(() => {
           this.router.navigate([`/video/${video.id}`])
-        }, 1000);
+        }, 0);
       },
       error: (err) => {
         this.errorMessage = 'Error uploading video.';

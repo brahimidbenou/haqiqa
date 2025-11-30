@@ -152,7 +152,7 @@ def get_transcripts_chuncks(video_id):
     chunk_objects = [entities.TranscriptChunk.from_tuple(row) for row in results]
     return chunk_objects
 
-def embed_script(video_id):
+def embed_script(video_id, user_id):
     chunks = get_transcripts_chuncks(video_id)
     if not chunks:
         print(f"No chunks found for video {video_id}.")
@@ -174,7 +174,8 @@ def embed_script(video_id):
                     "id": chunk_id_str,  
                     "video_id": video_id_str, 
                     "start_time": chunk.start_time,
-                    "end_time": chunk.end_time
+                    "end_time": chunk.end_time,
+                    "user_id": user_id
                 }
             )
             docs_to_add.append(doc)
@@ -204,3 +205,22 @@ def delete_video_collection(video_id):
         ai_models.db_client.delete_collection(collection_name)
     except Exception as e:
         print(f"Error deleting collection {collection_name}: {e}")
+
+def delete_user_collections(user_id):
+    try:
+        collections = ai_models.db_client.list_collections()
+
+        for collection in collections:
+            try:
+                result = collection.get(limit=1, include=["metadatas"])
+
+                if result and result['metadatas'] and len(result['metadatas']) > 0:
+                    metadata = result['metadatas'][0]
+
+                    if metadata.get('user_id') == user_id:
+                        ai_models.db_client.delete_collection(name=collection.name)
+            except Exception as e:
+                print(f"Error inspecting/deleting collection {collection.name}: {e}")
+                continue
+    except Exception as e:
+        print(f"Error listing or processing collections: {e}")

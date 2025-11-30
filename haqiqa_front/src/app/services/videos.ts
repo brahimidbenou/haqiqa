@@ -109,12 +109,13 @@ export class Videos {
       'Authorization': `Bearer ${this.authService.getToken()}`
     });
 
-    const params = new HttpParams().set('objectKey', objectKey);
+    const userId = this.authService.getUserInfo()?.id!;
+    const uri = `userId=${userId}&objectKey=${objectKey}`;
 
     return this.http.post<any>(
-      `${this.apiUrl}/start-transcription/${id}`,
+      `${this.apiUrl}/start-transcription/${id}?${uri}`,
       {}, 
-      { headers, params }
+      { headers }
     );
   }
 

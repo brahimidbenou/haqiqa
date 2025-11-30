@@ -24,6 +24,7 @@ import com.haqiqa.haqiqa.dtos.users.UpdateUserDto;
 import com.haqiqa.haqiqa.dtos.users.UserDto;
 import com.haqiqa.haqiqa.exceptions.users.UsedEmailException;
 import com.haqiqa.haqiqa.exceptions.users.UserNotFoundException;
+import com.haqiqa.haqiqa.services.AiService;
 import com.haqiqa.haqiqa.services.StorageService;
 import com.haqiqa.haqiqa.services.UserService;
 
@@ -34,10 +35,12 @@ import jakarta.validation.Valid;
 public class UserController {
     private final UserService userService;
     private final StorageService storageService;
+    private final AiService aiService;
 
-    public UserController(UserService userService, StorageService storageService) {
+    public UserController(UserService userService, StorageService storageService, AiService aiService) {
         this.userService = userService;
         this.storageService = storageService;
+        this.aiService = aiService;
     }
 
     @PostMapping("")
@@ -98,6 +101,16 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) throws UserNotFoundException {
         userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/delete-collections/{id}")
+    public ResponseEntity<Void> deleteCollections(@PathVariable UUID id) throws Exception {
+        try {
+            aiService.deleteCollections(id.toString());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
         return ResponseEntity.noContent().build();
     }
 }

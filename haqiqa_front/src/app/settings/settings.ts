@@ -56,7 +56,7 @@ export class Settings implements OnInit {
       next: (resp) => {
         this.ngZone.run(() => {
           this.avatarUrl = resp.url;
-          this.cdr.detectChanges();
+          this.cdr.markForCheck();
         });
       },
       error: (err) => {
@@ -137,6 +137,7 @@ export class Settings implements OnInit {
 
     this.videosService.deleteAllFiles(this.id).subscribe({
       next: () => {
+        this.deleteCollections();
         this.deleteUser();
       },
       error: (_err) => {
@@ -165,6 +166,23 @@ export class Settings implements OnInit {
         });
       }
     });
+  }
+
+  deleteCollections() {
+    this.userService.deleteCollections(this.id).subscribe({
+      next: () => {
+        this.ngZone.run(() => {
+          this.successMsg = "The collections have been deleted.";
+          this.cdr.detectChanges();
+        });
+      },
+      error: (_err) => {
+        this.ngZone.run(() => {
+          this.errorMsg = "An error occurred while deleting the collections. Please try again.";
+          this.cdr.detectChanges();
+        });
+      }
+    })
   }
 
   onFileSelected(event: Event) {

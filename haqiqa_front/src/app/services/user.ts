@@ -67,4 +67,12 @@ export class User {
     });
   }
 
+  deleteCollections(id: string) {
+    return this.http.delete(`${this.apiUrl}/delete-collections/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      }
+    });
+  }
+
 }

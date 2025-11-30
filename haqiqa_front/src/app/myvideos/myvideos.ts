@@ -80,8 +80,11 @@ export class Myvideos implements OnInit, AfterViewInit, OnDestroy {
     const videos = this.videoService.getVideos(userId, this.page)
     if (!videos) return;
 
-    this.isLoading = true;
-    this.page++;
+    this.ngZone.run(() => {
+      this.isLoading = true;
+      this.page++;
+      this.cdr.detectChanges();
+    })
 
     const sub = videos.pipe(
       finalize(() => {

@@ -67,7 +67,7 @@
     width: 150px;
     height: 40px;
     cursor: pointer;
-    background: var(--primary);
+    background: var(--error);
     border-radius: 8px;
     border: none;
     font-style: normal;
@@ -82,7 +82,7 @@
 }
 
 .buttons button:hover {
-    background-color: var(--primary-light);
+    background-color: #c82333;
 }
 
 input[type="file"] {

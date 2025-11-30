@@ -25,7 +25,7 @@ def notify_backend(video_id, status):
     except Exception as e:
         print(f"Failed to notify backend: {e}")
 
-def process_video_task(video_id, object_key):
+def process_video_task(video_id, user_id, object_key):
     try:
         notify_backend(video_id, "PROCESSING")
         update_video_status(video_id, "PROCESSING")
@@ -44,7 +44,7 @@ def process_video_task(video_id, object_key):
             print("Transcription complete. Saving to database...")
             
             save_transcript_chunks(video_id, result['segments'])
-            embed_script(video_id)
+            embed_script(video_id, user_id)
             
             update_video_status(video_id, "COMPLETED")
             notify_backend(video_id, "COMPLETED")
