@@ -4,6 +4,7 @@ import { Auth, UserInfo } from '../services/auth';
 import { Router } from '@angular/router';
 import { User, UserDto } from '../services/user';
 import { FormsModule } from "@angular/forms"; 
+import { Videos } from '../services/videos';
 
 @Component({
   selector: 'app-settings',
@@ -30,6 +31,7 @@ export class Settings implements OnInit {
   constructor(
     private authService: Auth,
     private userService: User,
+    private videosService: Videos,
     private router: Router,
     private ngZone: NgZone,           
     private cdr: ChangeDetectorRef   
@@ -44,7 +46,6 @@ export class Settings implements OnInit {
     this.firstName = userInfo.firstName;
     this.lastName = userInfo.lastName;
     this.email = userInfo.email;
-
     if (userInfo.avatar?.trim()) {
       this.getAvatar(userInfo.avatar)
     }
@@ -55,7 +56,7 @@ export class Settings implements OnInit {
       next: (resp) => {
         this.ngZone.run(() => {
           this.avatarUrl = resp.url;
-          this.cdr.markForCheck();
+          this.cdr.detectChanges();
         });
       },
       error: (err) => {
@@ -96,6 +97,7 @@ export class Settings implements OnInit {
             this.originalUserInfo.firstName = this.firstName;
             this.originalUserInfo.lastName = this.lastName;
             this.originalUserInfo.email = this.email;
+            this.originalUserInfo.avatar = response.avatar;
             this.authService.saveUserInfo(this.originalUserInfo);
           }
           this.password = this.confirmPassword = '';
@@ -129,21 +131,37 @@ export class Settings implements OnInit {
     });
   }
 
-  delete() {
+  onDelete() {
     this.errorMsg = '';
     this.successMsg = '';
 
+    this.videosService.deleteAllFiles(this.id).subscribe({
+      next: () => {
+        this.deleteUser();
+      },
+      error: (_err) => {
+        this.ngZone.run(() => {
+          this.errorMsg = "An error occurred while deleting user files. Please try again.";
+          this.cdr.detectChanges();
+        });
+      }
+    });
+  }
+
+  deleteUser() {
     this.userService.deleteUser(this.id).subscribe({
       next: () => {
         this.ngZone.run(() => {
+          this.successMsg = "The user has been deleted.";
           this.authService.logout();
           this.router.navigate(['/']);
+          this.cdr.detectChanges();
         });
       },
       error: (_err) => {
         this.ngZone.run(() => {
           this.errorMsg = "An error occurred while deleting the account. Please try again.";
-          this.cdr.markForCheck();
+          this.cdr.detectChanges();
         });
       }
     });

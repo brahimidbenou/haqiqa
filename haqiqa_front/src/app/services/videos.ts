@@ -96,6 +96,14 @@ export class Videos {
     });
   }
 
+  deleteAllFiles(user_id: string) {
+    return this.http.delete(`${this.apiUrl}/delete-all-files/${user_id}`, {
+      headers: {
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      }
+    });
+  }
+
   transcribe(id: string, objectKey: string) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authService.getToken()}`

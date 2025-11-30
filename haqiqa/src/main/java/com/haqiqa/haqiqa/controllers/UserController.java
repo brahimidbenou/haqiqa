@@ -45,12 +45,12 @@ public class UserController {
         UserDto createdUser = userService.createUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable UUID id) throws UserNotFoundException {
         return ResponseEntity.ok(userService.getUser(id));
     }
-    
+
     @GetMapping("/avatar")
     public ResponseEntity<Map<String, String>> getUserAvatar(@RequestParam("key") String key) throws Exception {
         Duration ttl = Duration.ofHours(1);
@@ -61,8 +61,6 @@ public class UserController {
 
         return ResponseEntity.ok(response);
     }
-
-
 
     @PutMapping(value = "/update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<UserDto> updateUser(
@@ -80,7 +78,7 @@ public class UserController {
                     : avatar.getOriginalFilename().replaceAll("[^a-zA-Z0-9._-]", "_");
 
             if (avatarKey == null || avatarKey.isBlank()) {
-                avatarKey = "avatars/" + UUID.randomUUID() + "-" + name;
+                avatarKey = id.toString() + "/avatars/" + UUID.randomUUID() + "-" + name;
                 updateUserDto.setAvatar(avatarKey);
             }
 
@@ -95,7 +93,7 @@ public class UserController {
 
         UserDto updatedUser = userService.updateUser(id, updateUserDto);
         return ResponseEntity.ok(updatedUser);
-    }    
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) throws UserNotFoundException {

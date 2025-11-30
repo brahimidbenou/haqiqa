@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.minio.GetPresignedObjectUrlArgs;
+import io.minio.ListObjectsArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
+import io.minio.Result;
+import io.minio.messages.Item;
 import io.minio.http.Method;
 
 @Service
@@ -53,10 +57,30 @@ public class MinioStorageService implements StorageService {
 
     @Override
     public void delete(String key) throws Exception {
-        io.minio.RemoveObjectArgs args = io.minio.RemoveObjectArgs.builder()
-            .bucket(bucket)
-            .object(key)
-            .build();
+        RemoveObjectArgs args = RemoveObjectArgs.builder()
+                .bucket(bucket)
+                .object(key)
+                .build();
         minio.removeObject(args);
+    }
+
+    @Override
+    public void deleteAllFiles(String userId) throws Exception {
+        ListObjectsArgs args = ListObjectsArgs.builder()
+                .bucket(bucket)
+                .prefix(userId)
+                .recursive(true)
+                .build();
+
+        Iterable<Result<Item>> results = minio.listObjects(args);
+
+        for (Result<Item> result : results) {
+            Item item = result.get();
+            System.out.println("Deleting " + item.objectName());
+            minio.removeObject(RemoveObjectArgs.builder()
+                    .bucket(bucket)
+                    .object(item.objectName())
+                    .build());
+        }
     }
 }

@@ -67,12 +67,13 @@ public class VideoController {
             @RequestParam("title") String title,
             @RequestParam("summary") String summary,
             @RequestParam("userId") UUID userId) throws UserNotFoundException, Exception {
-        
-        
+
         String original = video.getOriginalFilename() == null ? "video" : video.getOriginalFilename();
-        String thumbnailOrigin = thumbnail.getOriginalFilename() == null ? "thumbnail" : thumbnail.getOriginalFilename();
-        String videoKey = "videos/" + UUID.randomUUID().toString() + "-" + original.replaceAll("[^a-zA-Z0-9._-]", "_");
-        String thumbnailKey = "thumbnails/" + UUID.randomUUID().toString() + "-"
+        String thumbnailOrigin = thumbnail.getOriginalFilename() == null ? "thumbnail"
+                : thumbnail.getOriginalFilename();
+        String videoKey = userId.toString() + "/videos/" + UUID.randomUUID().toString() + "-"
+                + original.replaceAll("[^a-zA-Z0-9._-]", "_");
+        String thumbnailKey = userId.toString() + "/thumbnails/" + UUID.randomUUID().toString() + "-"
                 + thumbnailOrigin.replaceAll("[^a-zA-Z0-9._-]", "_");
 
         storageService.upload(videoKey, video.getInputStream(), video.getContentType(), video.getSize());
@@ -91,7 +92,8 @@ public class VideoController {
 
             grabber.stop();
         }
-        VideoDto createdVideo = videoService.createVideoWithUpload(videoKey, thumbnailKey, title, summary, userId, duration);
+        VideoDto createdVideo = videoService.createVideoWithUpload(videoKey, thumbnailKey, title, summary, userId,
+                duration);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdVideo);
     }
 
@@ -101,12 +103,14 @@ public class VideoController {
         Duration ttl = Duration.ofHours(1);
         String url = storageService.presignGetUrl(video.getObjectKey(), ttl);
         VideoUrlDto resp = new VideoUrlDto(video.getId(), video.getTitle(), video.getSummary(), video.getUserId(),
-                video.getUploadedAt(), url, video.getObjectKey(), video.getThumbnail(),video.getDuration(), video.getStatus());
+                video.getUploadedAt(), url, video.getObjectKey(), video.getThumbnail(), video.getDuration(),
+                video.getStatus());
         return ResponseEntity.ok(resp);
     }
 
     @GetMapping("/page/{userId}")
-    public ResponseEntity<Page<VideoUrlDto>> getVideosPage(@PathVariable UUID userId, @PageableDefault(size=10) Pageable pageable) throws NoVideoFoundException, Exception {
+    public ResponseEntity<Page<VideoUrlDto>> getVideosPage(@PathVariable UUID userId,
+            @PageableDefault(size = 10) Pageable pageable) throws NoVideoFoundException, Exception {
         Page<VideoDto> videosPage = videoService.getVideosPage(userId, pageable);
         Duration ttl = Duration.ofHours(1);
 
@@ -122,7 +126,7 @@ public class VideoController {
             dto.setKey(video.getObjectKey());
             dto.setThumbnail(video.getThumbnail());
             dto.setStatus(video.getStatus());
-            
+
             try {
                 String url = storageService.presignGetUrl(video.getThumbnail(), ttl);
                 dto.setUrl(url);
@@ -142,9 +146,9 @@ public class VideoController {
         return ResponseEntity.ok(updatedVideo);
     }
 
-    @PostMapping("/{id}/status")    
+    @PostMapping("/{id}/status")
     @SuppressWarnings("UseSpecificCatch")
-    public ResponseEntity<?> updateStatus(@PathVariable String id, @RequestBody Map<String, String> payload) 
+    public ResponseEntity<?> updateStatus(@PathVariable String id, @RequestBody Map<String, String> payload)
             throws VideoNotFoundException, Exception {
         try {
             String statusStr = payload.get("status");
@@ -169,18 +173,30 @@ public class VideoController {
     public ResponseEntity<?> deleteVideoFile(@RequestParam String key) throws Exception {
         try {
             storageService.delete(key);
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().body("invalid key");
         }
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/delete-all-files/{userId}")
+    public ResponseEntity<?> deleteAllFiles(@PathVariable UUID userId) throws Exception {
+        System.out.println("Deleting all files for user: " + userId);
+        try {
+            storageService.deleteAllFiles(userId.toString());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Error deleting files");
+        }
+        return ResponseEntity.ok().build();
+        
+    }
+
     @PostMapping("/start-transcription/{id}")
     @SuppressWarnings("UseSpecificCatch")
-    public ResponseEntity<?> triggerTranscription(@PathVariable String id, @RequestParam String objectKey) 
+    public ResponseEntity<?> triggerTranscription(@PathVariable String id, @RequestParam String objectKey)
             throws VideoNotFoundException, Exception {
         try {
-            videoService.updateStatus(id,VideoStatus.PENDING);
+            videoService.updateStatus(id, VideoStatus.PENDING);
             websocketNotifier.sendStatusUpdate(id, VideoStatus.PENDING);
             TranscribeResponse response = aiService.startTranscription(id, objectKey);
             return ResponseEntity.accepted().body(response);
@@ -190,7 +206,7 @@ public class VideoController {
             return ResponseEntity.status(502).body("Error communicating with AI service: " + e.getMessage());
         }
     }
-    
+
     @PostMapping("analyze/{id}")
     public ResponseEntity<?> getVideoAnalysis(@PathVariable String id) {
         try {

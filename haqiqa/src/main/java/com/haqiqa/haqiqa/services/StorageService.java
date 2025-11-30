@@ -7,4 +7,5 @@ public interface StorageService {
     String upload(String key, InputStream data, String contentType, long size) throws Exception;
     String presignGetUrl(String key, Duration ttl) throws Exception;
     void delete(String key) throws Exception;
+    void deleteAllFiles(String userId) throws Exception;
 }
